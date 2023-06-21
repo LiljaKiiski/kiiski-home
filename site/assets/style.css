@@ -79,13 +79,27 @@ nav ul li a {
     list-style-type: none;
 }
 
+.section h2 {
+    border-style: solid;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px;
+    background-color: #f3d2c1;
+    box-shadow: 10px 10px #8f817b;
+}
+
 .section .info {
+    border-radius: 10px;
     background: #fffef8;
+    box-shadow: 10px 10px #b1a099;
     padding: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     margin-left: 10vw;
     margin-right: 10vw;
 }
 
+/* MEMBERS */
 .family-members {
     display: flex;
     flex-wrap: wrap;
@@ -94,13 +108,20 @@ nav ul li a {
 
 .profile-box {
     width: 200px;
-    margin: 10px;
+    margin: 20px;
     padding: 10px;
+    border-radius: 20px;
     background-color: #f3d2c1;
+    box-shadow: 10px 10px #ffeed7;
 }
 
 .profile-box img {
+    padding-top: 10px;
     width: 180px;
+}
+
+.profile-box p {
+    padding: 5px;
 }
 
 /* FOOTER */
