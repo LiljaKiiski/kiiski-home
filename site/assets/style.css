@@ -10,12 +10,6 @@ body {
     color: #4a4a4a;
 }
 
-h1 {
-    font-size: 58px;
-    color: #5d534f;
-    margin-bottom: 10px;
-}
-
 h2 {
     font-size: 22px;
     color: #5d534f;
@@ -23,10 +17,19 @@ h2 {
 }
 
 /* HEADER */
-header {
+.header {
     background-color: #f3d2c1;
+    border-radius: 10px;
     text-align: center;
-    padding: 20px;
+    padding: 40px;
+    margin: 20px;
+}
+
+.header #gliding-title {
+    font-size: 70px;
+    color: #8f817b;
+    text-shadow: -4px 4px #5d534f;
+    margin-bottom: 10px;
 }
 
 /* NAVBAR */
@@ -91,7 +94,7 @@ nav ul li a {
 .section .info {
     border-radius: 10px;
     background: #fffef8;
-    box-shadow: 10px 10px #b1a099;
+    box-shadow: 10px 10px #cab6ae;
     padding: 30px;
     margin-top: 30px;
     margin-bottom: 30px;
