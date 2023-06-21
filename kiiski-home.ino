@@ -20,15 +20,6 @@ void setup() {
     Serial.println("ERROR - SD card initialization failed!");
     return;
   }
-
-  //Initialized SD Card
-  Serial.println("SUCCESS - SD card initialized.");
-  if (!SD.exists("index.htm")) {
-    Serial.println("ERROR - Can't find index.htm file!");
-  }
-
-  //Found file
-  Serial.println("SUCCESS - Found index.htm file.");
 }
 
 void loop() {
@@ -44,60 +35,58 @@ void loop() {
         char c = client.read(); 
 
         request += c;
+        Serial.print(c);
 
         if (c == '\n'){
+          Serial.println("ENDED - CHECK THIS ALL");
           int indx = request.indexOf("GET /");
+          Serial.println(indx);
           
           //GET Request
-          if (indx > 0){
-            
+          if (indx >= 0){
+            String fileName;
+
             //Looking for ASSETS/IMAGES/*
             if (request.indexOf("assets/images") > 0){
+              //Get filename
+              while(request.charAt(indx) != ' '){
+                fileName += request.charAt(indx);
+                indx++;
+              }
+
               client.println("HTTP/1.1 200 OK");
               client.println("Content-Type: image/png");
               client.println();
 
             //Looking for ASSETS/style.css
             } else if (request.indexOf("assets/style.css") > 0){
+              fileName = "assets/style.css";
               client.println("HTTP/1.1 200 OK");
               client.println("Content-Type: text/css");
               client.println();
 
             //Index.htm
             } else {
+              fileName = "index.htm";
               client.println("HTTP/1.1 200 OK");
               client.println("Content-Type: text/html");
               client.println();
             }
 
-          }
-      }
-
-      /*
-        //Last line of client req is always blank
-        if (c == '\n' && currentLineIsBlank) {
-          client.println("HTTP/1.1 200 OK");
-          client.println("Content-Type: text/html");
-          client.println("Connection: close");
-          client.println();
-          
-          page = SD.open("index.htm");        
-          if (page) {
-            while (page.available()) {
-              client.write(page.read());
+            //Send client
+            Serial.print("FILENAME: ");
+            Serial.println(fileName);
+            File file = SD.open(fileName);
+            if (file){
+              while (file.available()){
+                client.write(file.read());
+              }
+              file.close();
             }
-            page.close();
+            break;
           }
-          break; 
         }
-        if (c == '\n') {
-          currentLineIsBlank = true;
-        }
-        else if (c != '\r') {
-          currentLineIsBlank = false;
-        }
-      } 
-      */
+      }
     } 
     delay(1);      
     client.stop(); 
