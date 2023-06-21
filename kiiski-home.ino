@@ -5,9 +5,8 @@
 byte mac[] = { 0xA8, 0x61, 0x0A, 0xAE, 0x3A, 0xC4 };
 EthernetServer server(80);
 
-File page;
-
 String request;
+String fileName;
 
 void setup() {
   Ethernet.begin(mac);
@@ -47,20 +46,31 @@ void loop() {
         request += c;
 
         if (c == '\n'){
+          int indx = request.indexOf("GET /");
           
-          int indx = request.indexOf("GET");
+          //GET Request
+          if (indx > 0){
+            
+            //Looking for ASSETS/IMAGES/*
+            if (request.indexOf("assets/images") > 0){
+              client.println("HTTP/1.1 200 OK");
+              client.println("Content-Type: image/png");
+              client.println();
 
-          //Requesting file
-          if (request.indexOf("GET") >= 0){
-            String  = request.substring(4, request.length());
+            //Looking for ASSETS/style.css
+            } else if (request.indexOf("assets/style.css") > 0){
+              client.println("HTTP/1.1 200 OK");
+              client.println("Content-Type: text/css");
+              client.println();
 
-            Serial.println("FILENAME");
-            Serial.println(fileName);
-            Serial.println("END");
-
+            //Index.htm
+            } else {
+              client.println("HTTP/1.1 200 OK");
+              client.println("Content-Type: text/html");
+              client.println();
+            }
 
           }
-        }
       }
 
       /*
