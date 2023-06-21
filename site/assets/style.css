@@ -51,13 +51,28 @@ nav ul li a {
 }
 
 /* MAIN */
-
 .main {
+    margin-left: 20vw;
+    margin-right: 20vw;
     padding: 20px;
+    background: #ecbfb0;
 }
 
-div {
-    margin-bottom: 20px;
+.section {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.section ul {
+    display: inline-block;
+    list-style-type: none;
+}
+
+.section .info {
+    background: #fffef8;
+    padding: 30px;
+    margin-left: 10vw;
+    margin-right: 10vw;
 }
 
 /* FOOTER */
