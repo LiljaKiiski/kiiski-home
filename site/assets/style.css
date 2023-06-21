@@ -128,8 +128,9 @@ nav ul li a {
 }
 
 /* FOOTER */
-footer {
+.footer {
     background-color: #f3d2c1;
+    border-radius: 10px;
     padding: 10px;
     text-align: center;
     font-size: 12px;
