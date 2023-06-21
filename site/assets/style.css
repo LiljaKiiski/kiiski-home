@@ -29,7 +29,7 @@ h2 {
     font-size: 70px;
     color: #8f817b;
     text-shadow: -4px 4px #5d534f;
-    margin-bottom: 10px;
+    margin-bottom: 45px;
 }
 
 /* NAVBAR */
@@ -51,6 +51,11 @@ nav ul li a {
     text-decoration: none;
     color: #5d534f;
     font-weight: bold;
+    background-color: #f3d2c1;
+    padding: 13px;
+    border-style: solid;
+    border-radius: 5px;
+    box-shadow: 5px 5px #8f817b;
 }
 
 /* MAIN */
@@ -95,7 +100,7 @@ nav ul li a {
     border-radius: 10px;
     background: #fffef8;
     box-shadow: 10px 10px #cab6ae;
-    padding: 30px;
+    padding: 40px;
     margin-top: 30px;
     margin-bottom: 30px;
     margin-left: 10vw;
@@ -130,9 +135,9 @@ nav ul li a {
 /* FOOTER */
 .footer {
     background-color: #f3d2c1;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px;
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
     color: #5d534f;
 }
