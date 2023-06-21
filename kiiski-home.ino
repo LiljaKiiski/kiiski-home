@@ -20,6 +20,7 @@ void setup() {
     Serial.println("ERROR - SD card initialization failed!");
     return;
   }
+  Serial.println("Successfully initialized SD card!");
 }
 
 void loop() {
@@ -35,12 +36,9 @@ void loop() {
         char c = client.read(); 
 
         request += c;
-        Serial.print(c);
 
         if (c == '\n'){
-          Serial.println("ENDED - CHECK THIS ALL");
           int indx = request.indexOf("GET /");
-          Serial.println(indx);
           
           //GET Request
           if (indx >= 0){
@@ -48,14 +46,24 @@ void loop() {
 
             //Looking for ASSETS/IMAGES/*
             if (request.indexOf("assets/images") > 0){
-              //Get filename
-              while(request.charAt(indx) != ' '){
-                fileName += request.charAt(indx);
-                indx++;
-              }
+              if (request.indexOf("assets/images/favicon.png")) { fileName = "favicon.png"; }
+              if (request.indexOf("assets/images/joona.png")) { fileName = "joona.png"; }
+              if (request.indexOf("assets/images/senja.png")) { fileName = "senja.png"; }
+              if (request.indexOf("assets/images/lilja.png")) { fileName = "lilja.png"; }
+              if (request.indexOf("assets/images/noora.png")) { fileName = "noora.png"; }
+              if (request.indexOf("assets/images/petteri.png")) { fileName = "petteri.png"; }
+              if (request.indexOf("assets/images/susanna.png")) { fileName = "susanna.png"; }
+              if (request.indexOf("assets/images/luukas.png")) { fileName = "luukas.png"; }
 
               client.println("HTTP/1.1 200 OK");
               client.println("Content-Type: image/png");
+              client.println();
+
+            //Looking for ASSETS/script.js
+            } else if (request.indexOf("assets/script.js") > 0){
+              fileName = "assets/script.js";
+              client.println("HTTP/1.1 200 OK");
+              client.println("Content-Type: text/javascript");
               client.println();
 
             //Looking for ASSETS/style.css
@@ -82,6 +90,10 @@ void loop() {
                 client.write(file.read());
               }
               file.close();
+
+            } else {
+              Serial.print(fileName);
+              Serial.println(" does NOT exist!");
             }
             break;
           }
