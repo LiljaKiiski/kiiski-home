@@ -44,11 +44,11 @@ void loop() {
           
           //GET Request
           if (indx >= 0){
-            String fileName;
+            client.println("HTTP/1.1 200 OK");
+            client.println("Content-Type: text/html");
+            client.println();
 
             //Send index.htm to client
-            Serial.print("SENDING ");
-            Serial.println(fileName);
             File file = SD.open("index.htm");
             if (file){
               
