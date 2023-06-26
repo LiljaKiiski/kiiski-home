@@ -46,34 +46,19 @@ void loop() {
           if (indx >= 0){
             String fileName;
 
-            //Looking for ASSETS/IMAGES/*
-            if (request.indexOf("assets/images") > 0){
-              fileName = "assets/images/";             
-              if (request.indexOf("assets/images/favicon.png") >= 0) { fileName += "favicon.png"; }
-              if (request.indexOf("assets/images/joona.png") >= 0) { fileName += "joona.png"; }
-              if (request.indexOf("assets/images/senja.png") >= 0) { fileName += "senja.png"; }
-              if (request.indexOf("assets/images/lilja.png") >= 0) { fileName += "lilja.png"; }
-              if (request.indexOf("assets/images/noora.png") >= 0) { fileName += "noora.png"; }
-              if (request.indexOf("assets/images/petteri.png") >= 0) { fileName += "petteri.png"; }
-              if (request.indexOf("assets/images/susanna.png") >= 0) { fileName += "susanna.png"; }
-              if (request.indexOf("assets/images/luukas.png") >= 0) { fileName += "luukas.png"; }
+            //Looking for IMAGES/*
+            if (request.indexOf("assets/") > 0){
+              fileName = "assets/";             
+              if (request.indexOf("assets/joona.png") >= 0) { fileName += "joona.png"; }
+              if (request.indexOf("assets/senja.png") >= 0) { fileName += "senja.png"; }
+              if (request.indexOf("assets/lilja.png") >= 0) { fileName += "lilja.png"; }
+              if (request.indexOf("assets/noora.png") >= 0) { fileName += "noora.png"; }
+              if (request.indexOf("assets/petteri.png") >= 0) { fileName += "petteri.png"; }
+              if (request.indexOf("assets/susanna.png") >= 0) { fileName += "susanna.png"; }
+              if (request.indexOf("assets/luukas.png") >= 0) { fileName += "luukas.png"; }
 
               client.println("HTTP/1.1 200 OK");
               client.println("Content-Type: image/png");
-              client.println();
-
-            //Looking for ASSETS/script.js
-            } else if (request.indexOf("assets/script.js") > 0){
-              fileName = "assets/script.js";
-              client.println("HTTP/1.1 200 OK");
-              client.println("Content-Type: text/javascript");
-              client.println();
-
-            //Looking for ASSETS/style.css
-            } else if (request.indexOf("assets/style.css") > 0){
-              fileName = "assets/style.css";
-              client.println("HTTP/1.1 200 OK");
-              client.println("Content-Type: text/css");
               client.println();
 
             //Index.htm
@@ -89,8 +74,31 @@ void loop() {
             Serial.println(fileName);
             File file = SD.open(fileName);
             if (file){
-              while (file.available()){
-                client.write(file.read());
+              
+              byte tBuf[64];
+              int clientCount = 0;
+              
+              //Image
+              if (fileName.indexOf(".png") >= 0){
+                while(file.available()) {
+                  tBuf[clientCount] = file.read();
+                  clientCount++;
+                  if(clientCount > 63) {
+                    client.write(tBuf,64);
+                    clientCount = 0;
+                  }
+
+                  //write in any stragglers
+                  if(clientCount > 0) {
+                    client.write(tBuf,clientCount);
+                  }
+                }
+
+              //Index.htm
+              } else {
+                while (file.available()){
+                  client.write(file.read());
+                }
               }
               file.close();
 
