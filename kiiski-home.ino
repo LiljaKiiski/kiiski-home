@@ -36,8 +36,10 @@ void loop() {
         char c = client.read(); 
 
         request += c;
+        Serial.print(c);
 
         if (c == '\n'){
+          Serial.println(request);
           int indx = request.indexOf("GET /");
           
           //GET Request
@@ -46,14 +48,15 @@ void loop() {
 
             //Looking for ASSETS/IMAGES/*
             if (request.indexOf("assets/images") > 0){
-              if (request.indexOf("assets/images/favicon.png")) { fileName = "favicon.png"; }
-              if (request.indexOf("assets/images/joona.png")) { fileName = "joona.png"; }
-              if (request.indexOf("assets/images/senja.png")) { fileName = "senja.png"; }
-              if (request.indexOf("assets/images/lilja.png")) { fileName = "lilja.png"; }
-              if (request.indexOf("assets/images/noora.png")) { fileName = "noora.png"; }
-              if (request.indexOf("assets/images/petteri.png")) { fileName = "petteri.png"; }
-              if (request.indexOf("assets/images/susanna.png")) { fileName = "susanna.png"; }
-              if (request.indexOf("assets/images/luukas.png")) { fileName = "luukas.png"; }
+              fileName = "assets/images/";             
+              if (request.indexOf("assets/images/favicon.png") >= 0) { fileName += "favicon.png"; }
+              if (request.indexOf("assets/images/joona.png") >= 0) { fileName += "joona.png"; }
+              if (request.indexOf("assets/images/senja.png") >= 0) { fileName += "senja.png"; }
+              if (request.indexOf("assets/images/lilja.png") >= 0) { fileName += "lilja.png"; }
+              if (request.indexOf("assets/images/noora.png") >= 0) { fileName += "noora.png"; }
+              if (request.indexOf("assets/images/petteri.png") >= 0) { fileName += "petteri.png"; }
+              if (request.indexOf("assets/images/susanna.png") >= 0) { fileName += "susanna.png"; }
+              if (request.indexOf("assets/images/luukas.png") >= 0) { fileName += "luukas.png"; }
 
               client.println("HTTP/1.1 200 OK");
               client.println("Content-Type: image/png");
@@ -97,6 +100,7 @@ void loop() {
             }
             break;
           }
+          request = "";
         }
       }
     } 
