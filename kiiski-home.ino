@@ -21,9 +21,13 @@ void setup() {
     return;
   }
   Serial.println("Successfully initialized SD card!");
+
+  setup_lamp();
 }
 
 void loop() {
+  update_lamp();
+  
   EthernetClient client = server.available();
 
   //Got a client
