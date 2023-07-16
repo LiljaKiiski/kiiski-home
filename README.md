@@ -1,4 +1,4 @@
-# Kiiski Home
+# kiiski-home
 
 A web server with a 3D-printed house for the Kiiski household
 
